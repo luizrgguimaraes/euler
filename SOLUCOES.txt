@@ -1,0 +1,112 @@
+--1 EULER 1 HASKELL
+multiples35 n = sum[x|x<-[1..n-1],x `mod` 3 ==0 || x `mod` 5==0]     
+
+%2 EULER 1 - PROLOG
+soma([X],X):-!.
+soma([X|XS],R):-soma(XS,S),R is X+S. 
+multiplos35sum(N,R):-N1 is (N-1),multiplos35(N1,M),soma(M,R).
+multiplos35(3,[3]):-!.
+multiplos35(N,[N|M]):-N mod 3 =:= 0,N1 is (N-1),multiplos35(N1,M),!.
+multiplos35(N,[N|M]):-N mod 5 =:= 0,N1 is (N-1),multiplos35(N1,M),!.
+multiplos35(N,M):-N1 is (N-1),multiplos35(N1,M).
+=================================================================================
+--3 EULE 2 - HASKELL
+fibs = 1 : 2 : [n+m | (n, m) <- zip fibs (tail fibs)]
+somaFibs = sum $ filter (<4000000) $ take 60 $ filter (even) fibs
+
+% 4 EULER 2 PROLOG
+fribonacci(0,1):-!.
+fribonacci(1,1):-!.
+fribonacci(X,R):-X1 is X -1,
+    				X2 is X - 2,
+    				fribonacci(X1,R1), 
+    				fribonacci(X2,R2),
+    				R is R1 + R2.
+impar(N):- N mod 2 =\= 0.
+somaFribo(N,0):-fribonacci(N,R1),R1 > 4000000,!.
+somaFribo(N,R):-fribonacci(N,R1),impar(R1),L is (N+1),somaFribo(L,R),!.
+somaFribo(N,R):-fribonacci(N,R1),L is (N+1),somaFribo(L,R2),R is (R1+R2),!.
+
+================================================================================
+--5 EULER 3 - HASKELL
+maiorFator divisor numero = if divisor >= numero then numero else
+                                if numero `mod` divisor == 0 then
+                                    maiorFator (divisor+1) (numero `div` divisor)
+                                else
+                                    maiorFator (divisor+1) numero
+
+
+%6 EULER 3 PROLOG
+maiorFator(N,D,D):-D>=N,!.
+maiorFator(N,D,R):-N>D,N mod D=:=0,N1 is N div D,D1 is (D+1),maiorFator(N1,D1,R),!.
+maiorFator(N,D,R):-D1 is (D+1),maiorFator(N,D1,R).
+%teste(N,R):-R is N div 6.
+
+================================================================================
+--7 EULER 4 HASKELL
+palindrome = maior [x*y|x<-[999,998..100],y<-[999,998..100],reverse(show(x*y))==show(x*y)]
+
+
+
+
+% 8 EULER 5 - INCOMPLETO
+%multiplo(_,M,1,M):-!.
+%multiplo(N,M,D,R):-M mod D =:= 0,!,D1 is (D-1),multiplo(N,M,D1,R).
+%multiplo(N,M,_,R):-M1 is (N*M),multiplo(N,M1,N,R).
+
+%9 EULER 6
+soma(0,S,Q,S,Q):-!.
+soma(I,S,Q,R,RQ):-I1 is (I-1),S1 is (S+I),Q1 is (Q+(I*I)),soma(I1,S1,Q1,R,RQ),!.
+sumSquareDifference(N,R):-I is (N-1),Q1 is (N*N),soma(I,N,Q1,S,RQ), R is ((S*S)-RQ).
+%sumSquareDifference(100,R).
+%25164150
+
+
+
+
+
+
+
+
+
+
+minuscula c = c>= 'a' && c <= 'z'
+
+potencia b 0 = 1
+potencia 1 _ = 1
+potencia b e = b * potencia b (e-1)
+
+concatenar [] = []
+concatenar (x:xs) = x ++ concatenar xs
+
+somar [] = 0
+somar (x:xs) = x + somar xs
+
+contem :: Eq a => [a] -> a -> Bool
+contem lista a = case lista of
+                    [] -> False
+                    (x:xs) -> if (x == a) then True
+                            else contem xs a
+
+obter n lista = case (n,lista) of
+                (_,[]) -> []
+                (0,_) -> []
+                (_,(x:xs)) -> x:obter (n-1) xs    
+
+
+--EULER 2 - SOLUCAO 1 - DEMORA MUITO
+impar n = if n `mod` 2 == 0 then False else True
+fribonacci 0 = 1
+fribonacci 1 = 1
+fribonacci x = fribonacci (x-1) + fribonacci (x-2)
+fribonacciSumAux y =      if y > 10 then 
+                              0 
+                          else
+                                fribonacci y + fribonacciSumAux (y + 1)
+                     
+fribonacciSum = fribonacciSumAux 1
+
+
+
+
+
